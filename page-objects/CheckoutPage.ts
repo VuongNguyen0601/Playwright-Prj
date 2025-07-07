@@ -1,39 +1,61 @@
-import { expect, Page } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
+import { BILLING_INFO } from "../datatest/BillingInfo";
+import { COLORS } from "../datatest/Color";
+
 
 export class CheckoutPage {
-    constructor(private page: Page) {}
-    
-    async fillBillingAndConfirmOrder() {
-        await this.page.waitForSelector('#payment-method');
-        await this.page.click('text=PLACE ORDER');
-    }
-    async verifyCheckoutPage() {
-        await this.page.waitForSelector('.checkout-form');
-    }
+   readonly FirstName: Locator;
+   readonly LastName: Locator;
+   readonly Country: Locator;
+   readonly StreetAddress: Locator;
+   readonly City: Locator;
+   readonly PhoneNum: Locator;
+   readonly ZipCode: Locator;
+   readonly Email: Locator;
+   readonly PlaceOrderBtn: Locator;
 
-    async choosePaymentMethod(method: 'bank' | 'cod') {
-        if (method === 'bank') {
-            await this.page.click('text=Direct Bank Transfer');
-        } else if (method === 'cod') {
-            await this.page.click('text=Cash on Delivery');
-        }
-    }
+   constructor(private page: Page) {
+    this.FirstName = page.getByRole('textbox', { name: 'First name*' });
+    this.LastName = page.getByRole('textbox', { name: 'Last name*' });
+    this.Country = page.getByLabel('Country / Region');
+    this.StreetAddress = page.getByRole('textbox', { name: 'Street address *' });
+    this.City = page.getByRole('textbox', { name: 'Town / City *' });
+    this.PhoneNum = page.getByRole('textbox', { name: 'Phone *' });
+    this.ZipCode = page.getByRole('textbox', { name: 'ZIP Code *' });
+    this.Email = page.getByRole('textbox', { name: 'Email address *' });
+    this.PlaceOrderBtn = page.getByRole('button' , { name: 'Place order'});
+   }
 
-    async leaveFieldsBlankAndPlaceOrder() {
-        await this.page.click('text=PLACE ORDER');
-    }
+   async GetItemOrdered(prdName: string, quantity: number) {
+    return this.page.getByRole('cell', {name: `${prdName} × ${quantity}` });
+   }
 
-    async verifyValidationErrors() {
-        const errorMessage = this.page.locator('.woocommerce-error');
-        await expect(errorMessage).toBeVisible();
-        await expect(errorMessage).toContainText('required'); 
-    }
+   async FillBillingDetails(info: BILLING_INFO): Promise<void> {
+    await this.FirstName.fill(info.firstName);
+    await this.LastName.fill(info.lastName);
+    await this.Country.fill(info.country);
+    await this.StreetAddress.fill(info.StrAdd);
+    await this.City.fill(info.city);
+    await this.ZipCode.fill(info.zipCode);
+    await this.PhoneNum.fill(info.phoneNum);
+    await this.Email.fill(info.email);
+   }
 
-    async fillBillingDetails() {
-        await this.page.waitForSelector('#payment-method');
-    }
+   async PlaceOrder() {
+    await this.PlaceOrderBtn.click();
+   }
 
-    async placeOrder() {
-        await this.page.click('text=PLACE ORDER');
+   async ChoosePaymentMethod(method: string) {
+    await this.page.getByText(`${method}`).click();
+   }
+
+   async GetErrMsg() {
+    return this.page.getByRole('alert');
+   }
+
+   async VerifyFieldHigh(fields: string[]) {
+    for(let i = 0; i <= fields.length; i++) {
+        await expect(this.page.getByRole('textbox', { name: `${fields[i]} *` })).toHaveCSS('--et_inputs-border-color', COLORS.RED);
     }
+   }
 }

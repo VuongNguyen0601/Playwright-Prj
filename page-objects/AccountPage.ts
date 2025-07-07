@@ -1,25 +1,25 @@
-import { Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class AccountPage {
-    constructor(private page: Page) {}
+    readonly AllDepartmentsDropdown: Locator;
+    private OptionName: Locator;
+    private PageName: Locator;
 
-    async goToMyAccount() {
-        await this.page.click('text=My Account');
+    constructor(private page: Page) {
+        this.AllDepartmentsDropdown = page.getByText('All Departments');
     }
 
-    async openOrdersSection() {
-        await this.page.click('text=Orders');
+    async NavigateToAllDepartmentsDropdown() {
+        await this.AllDepartmentsDropdown.hover();
     }
 
-    async verifyOrdersExist(expectedOrderCount: number) {
-        const orders = await this.page.$$('.order-row');
-        if (orders.length < expectedOrderCount) {
-            throw new Error('Expected at least ${expectedOrderCount} orders, but found $${order.length}');
-        }
+    async SelectPage(OptionName: string) {
+        this.OptionName = this.page.getByRole('link', {name:  ` ${OptionName}` });
+        await this.OptionName.click();
     }
 
-    async verifyOrderDetailsVisible() {
-        const firstOrder = await this.page.$('.order-row');
-        if (!firstOrder) throw new Error('No order details are visible!');
+    async goToPage(PageName: string) {
+        this.PageName = this.page.locator('#menu-main-menu-1').getByRole('link', { name: `${PageName}` });
+        await this.PageName.click();
     }
 }

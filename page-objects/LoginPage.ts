@@ -1,15 +1,22 @@
 import { Page } from '@playwright/test';
+import { Locator } from '@playwright/test';
 
 export class LoginPage {
-    constructor(private page: Page) {}
+   readonly UserName: Locator;
+   readonly Password: Locator;
+   readonly SubmitBtn: Locator;
+   readonly AllDepartmentsDropdown: Locator;
 
-    async goto() {
-        await this.page.goto('https://demo.testarchitect.com/');
-    }
+   constructor(private page: Page) {
+    this.UserName = page.getByRole('textbox', { name: 'Username or email address *' });
+    this.Password = page.getByRole('textbox', { name: 'Password *'});
+    this.SubmitBtn = page.getByRole('button', { name: 'Log in *'});
+    this.AllDepartmentsDropdown = page.getByText('All departments');
+   }
 
-    async login(username: string, password: string) {
-        await this.page.fill('#username', username);
-        await this.page.fill('#password', password);
-        await this.page.click('#login-button');
-    }
+   async Login() {
+    await this.UserName.fill(process.env.USER_NAME!);
+    await this.Password.fill(process.env.PASSWORD!);
+    await this.SubmitBtn.click();
+   }
 }

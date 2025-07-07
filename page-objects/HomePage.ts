@@ -1,31 +1,21 @@
-import { Page } from '@playwright/test';
+import { Locator} from "@playwright/test";
+import { Page } from "@playwright/test";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export class HomePage {
-    constructor(private page: Page) {}
+    readonly LoginBtn: Locator;
 
-    async goToAllDepartments() {
-        await this.page.click('text=All Departments');
+    constructor(private page: Page) {
+        this.LoginBtn = page.getByRole('link' , { name: 'Log in / Sign up'});
     }
 
-    async selectCategory(category: string) {
-        await this.page.click('text=${category}');
+    async Navigate() {
+        await this.page.goto(process.env.URL!);
     }
 
-    async verifyGridView() {
-        await this.page.waitForSelector('.product-grid');
-    }
-
-    async switchToListView() {
-        await this.page.click('button[aria-label="List view"]');
-    }
-
-    async verifyListView() {
-        await this.page.waitForSelector('.product-list');
-    }
-
-    async selectRandomItem() {
-        const items = await this.page.$$('.product-lít-item');
-        const randomIndex = Math.floor(Math.random() * items.length);
-        await items[randomIndex].click();
+    async GoToLoginPage() {
+        await this.LoginBtn.click();
     }
 }

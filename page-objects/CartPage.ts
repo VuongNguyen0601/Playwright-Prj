@@ -1,90 +1,64 @@
 import { expect, Page, Locator } from '@playwright/test';
+import { MESSAGES } from '../datatest/Messages';
 
 export class CartPage {
-  private page: Page;
 
-  readonly cartItems: Locator;
-  readonly quantityInput: Locator;
   readonly plusButton: Locator;
   readonly minusButton: Locator;
   readonly updateCartButton: Locator;
-  readonly subtotalText: Locator;
-  readonly emptyCartMessage: Locator;
+  readonly title: Locator;
+  readonly clearCartBtn: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
-
-    // Locators
-    this.cartItems = page.locator('.cart-item'); 
-    this.quantityInput = page.locator('input.qty'); 
-    this.plusButton = page.locator('button.plus');
-    this.minusButton = page.locator('button.minus');
-    this.updateCartButton = page.locator('button[name="update_cart"]');
-    this.subtotalText = page.locator('.cart-subtotal .amount');
-    this.emptyCartMessage = page.locator('text=YOUR SHOPPING CART IS EMPTY');
+  constructor(private page: Page) {
+    this.clearCartBtn = page.locator('.clear-cart');
+    this.plusButton = page.locator('.plus');
+    this.minusButton = page.locator('.minus');
+    this.title = page.locator('.product-title');
+    this.updateCartButton = page.getByRole('button', { name: 'UPDATE CART' });
   }
 
-  // Go to cart icon or cart page
-  async goToCart() {
-    await this.page.click('#cart-icon'); 
+  async VerifyOrdersInTable() {
+    const CartItems = await this.page.locator('.table-responsive table tbody tr.cart_item').count();
+    await expect(CartItems).toBeGreaterThan(0);
   }
 
-  // Verify number of items in cart
-  async verifyItemInCart(expectedCount: number) {
-    const actualCount = await this.cartItems.count();
-    expect(actualCount).toBe(expectedCount);
+  async CLearCart() {
+    await this.clearCartBtn.click();
   }
 
-  // Proceed to checkout
-  async proceedToCheckout() {
-    await this.page.click('text=Checkout');
+  async GetEmptyCartMsg() {
+    return this.page.getByRole('heading', { name: MESSAGES.EMPTY_CART_MESSAGE });
   }
 
-  // Clear all items from cart
-  async clearCart() {
-    await this.page.click('text=Clear'); 
+  async GetOrderedItemQuantity(prdName: string) {
+    return parseFloat(await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? '0');
   }
 
-  // Confirm cart is empty
-  async verifyCartIsEmpty() {
-    await expect(this.emptyCartMessage).toBeVisible();
-  }
-
-  // TC09: Quantity Methods
-  async getQuantity(): Promise<number> {
-    return parseInt(await this.quantityInput.inputValue(), 10);
-  }
-
-  async getSubtotal(): Promise<number> {
-    const text = await this.subtotalText.textContent();
-    return parseFloat(text?.replace(/[^0-9.]/g, '') || '0');
-  }
-
-  async clickPlus() {
+  async AddQuantity() {
     await this.plusButton.click();
+    await this.page.waitForSelector('form .blockOverlay');
+    await this.page.waitForSelector('form .blockOverlay', { state: 'detached' });
   }
 
-  async clickMinus() {
+  async ReduceQuantity() {
     await this.minusButton.click();
+    await this.page.waitForSelector('form .blockOverlay');
+    await this.page.waitForSelector('form .blockOverlay', { state: 'detached' });
   }
 
-  async setQuantity(value: number) {
-    await this.quantityInput.fill(String(value));
+  async GetOrderItemPrice(prdName: string) {
+    const price = await this.page.locator('tr').filter({
+      has: this.page.getByRole('link', { name: `${prdName}` })
+    }).locator('.product-subtotal span bdi').innerText();
+    const NumberOnly = price.replace(/[^0-9.]/g, '');
+    return parseFloat(NumberOnly);
+  }
+
+  async FillQuantity(prdName: string, quantity: string) {
+    await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).fill(quantity);
+  }
+
+  async UpdateCart() {
     await this.updateCartButton.click();
-  }
-
-  async verifyQuantity(expected: number) {
-    const actual = await this.getQuantity();
-    expect(actual).toBe(expected);
-  }
-
-  async verifySubtotalIncreased(previous: number) {
-    const current = await this.getSubtotal();
-    expect(current).toBeGreaterThan(previous);
-  }
-
-  async verifySubtotalDecreased(previous: number) {
-    const current = await this.getSubtotal();
-    expect(current).toBeLessThan(previous);
   }
 }
