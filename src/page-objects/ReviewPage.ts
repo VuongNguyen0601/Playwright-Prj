@@ -14,7 +14,7 @@ export class ReviewPage {
         await this.page.click('input[name="submit"]');
     }
 
-    async verifyReviewcontent(expectedText: string) {
+    async verifyReviewContent(expectedText: string) {
         const reviewText = this.page.locator('.comment-content p');
         await expect(reviewText).toContainText(expectedText);
     }

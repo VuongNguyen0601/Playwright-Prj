@@ -1,4 +1,4 @@
-export const PAGE_NAV = {
+export const PAGE_NAVIGATE = {
    HOME: 'Home',
    ABOUT_US: 'About Us',
    SHOP: 'Shop',

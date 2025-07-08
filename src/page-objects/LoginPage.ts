@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 import { Locator } from '@playwright/test';
 
-export class LoginPage {
+export default class LoginPage {
    readonly UserName: Locator;
    readonly Password: Locator;
    readonly SubmitBtn: Locator;
@@ -14,7 +14,7 @@ export class LoginPage {
     this.AllDepartmentsDropdown = page.getByText('All departments');
    }
 
-   async Login() {
+   async login() {
     await this.UserName.fill(process.env.USER_NAME!);
     await this.Password.fill(process.env.PASSWORD!);
     await this.SubmitBtn.click();

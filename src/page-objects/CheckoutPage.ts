@@ -26,11 +26,11 @@ export class CheckoutPage {
     this.PlaceOrderBtn = page.getByRole('button' , { name: 'Place order'});
    }
 
-   async GetItemOrdered(prdName: string, quantity: number) {
+   async getItemOrdered(prdName: string, quantity: number) {
     return this.page.getByRole('cell', {name: `${prdName} × ${quantity}` });
    }
 
-   async FillBillingDetails(info: BILLING_INFO): Promise<void> {
+   async fillBillingDetails(info: BILLING_INFO): Promise<void> {
     await this.FirstName.fill(info.firstName);
     await this.LastName.fill(info.lastName);
     await this.Country.fill(info.country);
@@ -41,19 +41,19 @@ export class CheckoutPage {
     await this.Email.fill(info.email);
    }
 
-   async PlaceOrder() {
+   async placeOrder() {
     await this.PlaceOrderBtn.click();
    }
 
-   async ChoosePaymentMethod(method: string) {
+   async choosePaymentMethod(method: string) {
     await this.page.getByText(`${method}`).click();
    }
 
-   async GetErrMsg() {
+   async getErrMsg() {
     return this.page.getByRole('alert');
    }
 
-   async VerifyFieldHigh(fields: string[]) {
+   async verifyFieldHigh(fields: string[]) {
     for(let i = 0; i <= fields.length; i++) {
         await expect(this.page.getByRole('textbox', { name: `${fields[i]} *` })).toHaveCSS('--et_inputs-border-color', COLORS.RED);
     }

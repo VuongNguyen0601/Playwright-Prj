@@ -10,15 +10,15 @@ export class ProductPage {
       this.ClosePopUpBtn = page.getByRole('combobox', { name: 'Close' });
    }
 
-   async ChooseProduct(ProductName: string) {
-      await this.page.getByRole('link', {name: '${ProductName}'}).click;
+   async chooseProduct(ProductName: string) {
+      await this.page.getByRole('link', {name: ProductName}).click;
    }
 
-   async SortItems(sort: string) {
-      await this.SortDropdown.selectOption('${sort}');
+   async sortItems(sort: string) {
+      await this.SortDropdown.selectOption(sort);
    }
 
-   async GetAllPrice(): Promise<number[]> {
+   async getAllPrice(): Promise<number[]> {
       const prices: number[] = [];
       const ProductCount = await this.page.locator('.content-product').count();
 
@@ -34,13 +34,13 @@ export class ProductPage {
       return prices;
    }
 
-   async GetItemPricesAfterRefresh(): Promise<number[]> {
+   async getItemPricesAfterRefresh(): Promise<number[]> {
       await this.page.waitForSelector('.loading', {state: 'detached' });
-      return await this.GetAllPrice();
+      return await this.getAllPrice();
    }
 
-   async SortPrices(order: 'Ascend' | 'Descend'): Promise<number[]> {
-      const OriginPrices = await this.GetItemPricesAfterRefresh();
+   async sortPrices(order: 'Ascend' | 'Descend'): Promise<number[]> {
+      const OriginPrices = await this.getItemPricesAfterRefresh();
 
       if (order === 'Ascend') {
          return [...OriginPrices].sort((a, b) => a - b);

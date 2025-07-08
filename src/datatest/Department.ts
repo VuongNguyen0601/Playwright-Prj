@@ -7,5 +7,4 @@ export const DEPARTMENTS = {
     CONSUMER_ELECTRONIC: 'Consumer Electronics',
     ELECTRONIC_COMPONENT_AND_SUPPLIES: 'Electronic Components & Supplies',
     PHONES_AND_TELECOMMUNICATIONS: 'Phones & Telecommunications',
-    WATCHES: 'Watches'
 } as const

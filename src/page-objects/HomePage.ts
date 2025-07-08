@@ -4,18 +4,18 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export class HomePage {
+export default class HomePage {
     readonly LoginBtn: Locator;
 
     constructor(private page: Page) {
         this.LoginBtn = page.getByRole('link' , { name: 'Log in / Sign up'});
     }
 
-    async Navigate() {
+    async navigate() {
         await this.page.goto(process.env.URL!);
     }
 
-    async GoToLoginPage() {
+    async goToLoginPage() {
         await this.LoginBtn.click();
     }
 }

@@ -17,36 +17,36 @@ export class CartPage {
     this.updateCartButton = page.getByRole('button', { name: 'UPDATE CART' });
   }
 
-  async VerifyOrdersInTable() {
+  async verifyOrdersInTable() {
     const CartItems = await this.page.locator('.table-responsive table tbody tr.cart_item').count();
     await expect(CartItems).toBeGreaterThan(0);
   }
 
-  async CLearCart() {
+  async clearCart() {
     await this.clearCartBtn.click();
   }
 
-  async GetEmptyCartMsg() {
+  async getEmptyCartMsg() {
     return this.page.getByRole('heading', { name: MESSAGES.EMPTY_CART_MESSAGE });
   }
 
-  async GetOrderedItemQuantity(prdName: string) {
+  async getOrderedItemQuantity(prdName: string) {
     return parseFloat(await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? '0');
   }
 
-  async AddQuantity() {
+  async addQuantity() {
     await this.plusButton.click();
     await this.page.waitForSelector('form .blockOverlay');
     await this.page.waitForSelector('form .blockOverlay', { state: 'detached' });
   }
 
-  async ReduceQuantity() {
+  async reduceQuantity() {
     await this.minusButton.click();
     await this.page.waitForSelector('form .blockOverlay');
     await this.page.waitForSelector('form .blockOverlay', { state: 'detached' });
   }
 
-  async GetOrderItemPrice(prdName: string) {
+  async getOrderItemPrice(prdName: string) {
     const price = await this.page.locator('tr').filter({
       has: this.page.getByRole('link', { name: `${prdName}` })
     }).locator('.product-subtotal span bdi').innerText();
@@ -54,11 +54,11 @@ export class CartPage {
     return parseFloat(NumberOnly);
   }
 
-  async FillQuantity(prdName: string, quantity: string) {
+  async fillQuantity(prdName: string, quantity: string) {
     await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).fill(quantity);
   }
 
-  async UpdateCart() {
+  async updateCart() {
     await this.updateCartButton.click();
   }
 }
