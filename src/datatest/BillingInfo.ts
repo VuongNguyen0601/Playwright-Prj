@@ -4,8 +4,8 @@ export type BILLING_INFO = {
     country: string,
     StrAdd: string,
     city: string,
-    state: string,
-    zipCode: string,
+    //state: string,
+    //zipCode: string,
     phoneNum: string,
     email: string,
 }

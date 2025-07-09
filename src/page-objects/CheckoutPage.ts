@@ -10,18 +10,18 @@ export class CheckoutPage {
    readonly StreetAddress: Locator;
    readonly City: Locator;
    readonly PhoneNum: Locator;
-   readonly ZipCode: Locator;
+   //readonly ZipCode: Locator;
    readonly Email: Locator;
    readonly PlaceOrderBtn: Locator;
 
    constructor(private page: Page) {
-    this.FirstName = page.getByRole('textbox', { name: 'First name*' });
-    this.LastName = page.getByRole('textbox', { name: 'Last name*' });
-    this.Country = page.getByLabel('Country / Region');
+    this.FirstName = page.getByRole('textbox', { name: 'First name *' });
+    this.LastName = page.getByRole('textbox', { name: 'Last name *' });
+    this.Country = page.getByLabel('Country / Region *');
     this.StreetAddress = page.getByRole('textbox', { name: 'Street address *' });
     this.City = page.getByRole('textbox', { name: 'Town / City *' });
     this.PhoneNum = page.getByRole('textbox', { name: 'Phone *' });
-    this.ZipCode = page.getByRole('textbox', { name: 'ZIP Code *' });
+    //this.ZipCode = page.getByRole('textbox', { name: 'ZIP Code *' });
     this.Email = page.getByRole('textbox', { name: 'Email address *' });
     this.PlaceOrderBtn = page.getByRole('button' , { name: 'Place order'});
    }
@@ -30,13 +30,13 @@ export class CheckoutPage {
     return this.page.getByRole('cell', {name: `${prdName} × ${quantity}` });
    }
 
-   async fillBillingDetails(info: BILLING_INFO): Promise<void> {
+   async fillBillingDetails(info: BILLING_INFO) {
     await this.FirstName.fill(info.firstName);
     await this.LastName.fill(info.lastName);
-    await this.Country.fill(info.country);
+    await this.Country.selectOption(info.country);
     await this.StreetAddress.fill(info.StrAdd);
     await this.City.fill(info.city);
-    await this.ZipCode.fill(info.zipCode);
+    //await this.ZipCode.fill(info.zipCode);
     await this.PhoneNum.fill(info.phoneNum);
     await this.Email.fill(info.email);
    }

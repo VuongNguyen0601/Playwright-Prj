@@ -11,7 +11,13 @@ export class ProductPage {
    }
 
    async chooseProduct(ProductName: string) {
-      await this.page.getByRole('link', {name: ProductName}).click;
+      await this.page.getByRole('link', {name: ProductName, exact: true}).click();
+   }
+
+   async chooseRandomPrd(): Promise<void> {
+      const productCount = await this.page.locator('.content-product').count();
+      const randomIndex = Math.floor(Math.random() * productCount);
+      await this.page.locator('.content-product .product-title').nth(randomIndex).click();
    }
 
    async sortItems(sort: string) {
@@ -32,6 +38,11 @@ export class ProductPage {
          prices.push(numericPrice);
       }
       return prices;
+   }
+
+   async getItemOrder() {
+      await this.page.waitForSelector('.loading', { state: 'detached' });
+      return await this.getAllPrice();
    }
 
    async getItemPricesAfterRefresh(): Promise<number[]> {

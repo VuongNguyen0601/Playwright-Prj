@@ -9,11 +9,11 @@ export class AccountPage {
         this.AllDepartmentsDropdown = page.getByText('All Departments');
     }
 
-    async NavigateToAllDepartmentsDropdown() {
+    async navigateToAllDepartmentsDropdown() {
         await this.AllDepartmentsDropdown.hover();
     }
 
-    async SelectPage(OptionName: string) {
+    async selectPage(OptionName: string) {
   
         await this.page.getByRole('link', {name:  ` ${OptionName}` }).click();
     }
@@ -21,5 +21,10 @@ export class AccountPage {
     async goToPage(PageName: string) {
         
         await this.page.locator('#menu-main-menu-1').getByRole('link', { name: `${PageName}` }).click();
+    }
+
+    async changePage(OptionName: string) {
+  
+        await this.page.getByRole('link', {name:  `${OptionName}` }).click();
     }
 }

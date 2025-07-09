@@ -5,5 +5,5 @@ export const PAGE_NAVIGATE = {
    OFFERS: ' Offers',
    BLOG: 'Blog',
    CONTACT_US: 'Contact Us',
-   ORDERS: 'Orders',
+   ORDERS: ' Orders',
 } as const

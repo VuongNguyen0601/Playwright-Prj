@@ -6,9 +6,11 @@ dotenv.config();
 
 export default class HomePage {
     readonly LoginBtn: Locator;
+    readonly accountBtn: Locator;
 
     constructor(private page: Page) {
         this.LoginBtn = page.getByRole('link' , { name: 'Log in / Sign up'});
+        this.accountBtn = page.locator('.header-top .login-link');
     }
 
     async navigate() {
@@ -17,5 +19,9 @@ export default class HomePage {
 
     async goToLoginPage() {
         await this.LoginBtn.click();
+    }
+
+    async goToAccountPage() {
+        await this.accountBtn.click();
     }
 }

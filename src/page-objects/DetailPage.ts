@@ -13,14 +13,18 @@ export class DetailPage {
 
     async addToCart() {
         await this.AddToCartBtn.click();
+
+        await this.page.waitForSelector("[data-type='success']");
     }
 
     async clickCart() {
-        await this.AddToCartBtn.hover();
+        await this.CartBtn.hover();
     }
 
     async clickCheckout() {
         await this.CheckoutBtn.click();
+        //await this.page.waitForSelector('.blockOverlay');
+        //await this.page.waitForSelector('.blockOverlay', { state: 'detached' });
     }
 
     async goToCart() {
