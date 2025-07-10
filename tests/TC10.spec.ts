@@ -5,10 +5,15 @@ import { REVIEWS } from "data/Review";
 test("Verify users can post a review", async ({
     accountPage,
     productPage,
+    homePage,
+    loginPage,
     detailPage
 }) => {
     // Step 1: Open browser and go to website
+    await homePage.navigate();
     // Step 2: Login with valid credentials
+    await homePage.goToLoginPage();
+    await loginPage.login();
     // Step 3: Go to shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 

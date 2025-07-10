@@ -21,7 +21,6 @@ export class CheckoutPage {
     this.StreetAddress = page.getByRole('textbox', { name: 'Street address *' });
     this.City = page.getByRole('textbox', { name: 'Town / City *' });
     this.PhoneNum = page.getByRole('textbox', { name: 'Phone *' });
-    //this.ZipCode = page.getByRole('textbox', { name: 'ZIP Code *' });
     this.Email = page.getByRole('textbox', { name: 'Email address *' });
     this.PlaceOrderBtn = page.getByRole('button' , { name: 'Place order'});
    }
@@ -36,7 +35,6 @@ export class CheckoutPage {
     await this.Country.selectOption(info.country);
     await this.StreetAddress.fill(info.StrAdd);
     await this.City.fill(info.city);
-    //await this.ZipCode.fill(info.zipCode);
     await this.PhoneNum.fill(info.phoneNum);
     await this.Email.fill(info.email);
    }
@@ -54,7 +52,7 @@ export class CheckoutPage {
    }
 
    async verifyFieldHigh(fields: string[]) {
-    for(let i = 0; i <= fields.length; i++) {
+    for(let i = 0; i < fields.length; i++) {
         await expect(this.page.getByRole('textbox', { name: `${fields[i]} *` })).toHaveCSS('--et_inputs-border-color', COLORS.RED);
     }
    }

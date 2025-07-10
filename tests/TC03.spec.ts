@@ -14,13 +14,18 @@ const billingDetails: BILLING_INFO = {
 
 test("TC03 - Verify users can buy item using different payment methods (all payment methods)", async ({
     accountPage,
+    homePage,
+    loginPage,
     detailPage,
     productPage,
     checkoutPage,
     orderConfirmationPage
 }) => {
     // Step 1: Open browser and navigate to page
+    await homePage.navigate();
     // Step 2: Login with valid credentials
+    await homePage.goToLoginPage();
+    await loginPage.login();
     // Step 3: Go to Shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 

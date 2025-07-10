@@ -14,6 +14,8 @@ const billingDetails: BILLING_INFO = {
 
 test("TC02 - Verify users can buy multiple item successfully", async ({
     page,
+    homePage,
+    loginPage,
     accountPage,
     productPage,
     detailPage,
@@ -22,7 +24,10 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
     orderConfirmationPage
 }) => {
     // Step 1: Open browser and navigate to page
+    await homePage.navigate();
     // Step 2: Login with valid credentials
+    await homePage.goToLoginPage();
+    await loginPage.login();
     // Step 3: Go to Shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
@@ -41,7 +46,7 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
     const allPrd = [prd1, prd2];
 
     // Step 6: Proceed to checkout and confirm order
-    await cartPage.clickProceedToCheckout();
+    await cartPage.clickToCheckout();
     await checkoutPage.fillBillingDetails(billingDetails);
     await checkoutPage.placeOrder();
 

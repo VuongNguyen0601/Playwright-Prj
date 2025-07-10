@@ -3,6 +3,9 @@ import { PAGE_NAVIGATE } from "data/PageNavigate";
 
 test("TC08 - Verify users can clear the cart", async ({ page, homePage, loginPage, 
     accountPage, productPage, detailPage, cartPage }) => {
+        await homePage.navigate();
+        await homePage.goToLoginPage();
+        await loginPage.login();
         // User added the items into cart
         await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
         await productPage.chooseProduct('Photex FT3150 Black (95463)');

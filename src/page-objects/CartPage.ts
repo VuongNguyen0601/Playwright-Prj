@@ -8,6 +8,7 @@ export class CartPage {
   readonly updateCartButton: Locator;
   readonly title: Locator;
   readonly clearCartBtn: Locator;
+  readonly proceedToCheckoutBtn: Locator;
 
   constructor(private page: Page) {
     this.clearCartBtn = page.locator('.clear-cart');
@@ -15,6 +16,7 @@ export class CartPage {
     this.minusButton = page.locator('.minus');
     this.title = page.locator('.product-title');
     this.updateCartButton = page.getByRole('button', { name: 'UPDATE CART' });
+    this.proceedToCheckoutBtn = page.getByRole('link', { name: 'PROCEED TO CHECKOUT' });
   }
 
   async verifyOrdersInTable() {
@@ -60,5 +62,11 @@ export class CartPage {
 
   async updateCart() {
     await this.updateCartButton.click();
+    await this.page.waitForSelector('form .blockOverlay');
+    await this.page.waitForSelector('form .blockOverlay', { state: 'detached' });
+  }
+
+  async clickToCheckout() {
+    await this.proceedToCheckoutBtn.click();
   }
 }

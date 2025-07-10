@@ -3,34 +3,40 @@ import { REVIEWS } from "data/Review";
 
 
 export class DetailPage {
-    readonly AddToCartBtn: Locator;
-    readonly CartBtn: Locator;
-    readonly CheckoutBtn: Locator;
+    readonly addToCartBtn: Locator;
+    readonly cartBtn: Locator;
+    readonly checkoutBtn: Locator;
+    readonly reviewBtn: Locator;
+    readonly reviewTbx: Locator;
+    readonly submitReviewBtn: Locator;
 
     constructor(private page: Page) {
-        this.AddToCartBtn = page.getByRole('button', { name: 'Add to cart' });
-        this.CartBtn = page.getByRole('link').filter({ hasText: '$' });
-        this.CheckoutBtn = page.getByRole('link', { name: 'checkout' });
+        this.addToCartBtn = page.getByRole('button', { name: 'Add to cart' });
+        this.cartBtn = page.getByRole('link').filter({ hasText: '$' });
+        this.checkoutBtn = page.getByRole('link', { name: 'checkout' });
+        this.reviewBtn = page.locator('#tab_reviews');
+        this.reviewTbx = page.getByRole('textbox', { name: 'Your review *'});
+        this.submitReviewBtn = page.getByRole('button', { name: 'Submit' })
     }
 
     async addToCart() {
-        await this.AddToCartBtn.click();
+        await this.addToCartBtn.click();
 
         await this.page.waitForSelector("[data-type='success']");
     }
 
     async clickCart() {
-        await this.CartBtn.hover();
+        await this.cartBtn.hover();
     }
 
     async clickCheckout() {
-        await this.CheckoutBtn.click();
+        await this.checkoutBtn.click();
         //await this.page.waitForSelector('.blockOverlay');
         //await this.page.waitForSelector('.blockOverlay', { state: 'detached' });
     }
 
     async goToCart() {
-        await this.CartBtn.click();
+        await this.cartBtn.click();
         await this.page.reload();
     }
 
@@ -47,12 +53,6 @@ export class DetailPage {
 
     async getPrdName() {
         return this.page.locator('.product_title').innerText();
-    }
-
-    async priceInNumber() {
-        const price = await this.getPrice();
-        const numberOnly = price.replace(/[^0-9.]/g, '');
-        return parseFloat(numberOnly);
     }
 
     async clickReview() {

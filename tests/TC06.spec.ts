@@ -1,8 +1,6 @@
 import { expect, test } from "config/fixtures";
 import { BILLING_INFO } from "data/BillingInfo";
 import { PAGE_NAVIGATE } from "data/PageNavigate";
-import { DetailPage } from "pageElements/DetailPage";
-import { OrderConfirmationPage } from "pageElements/OrderConfirmationPage";
 
 const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
@@ -11,19 +9,19 @@ const billingDetails: BILLING_INFO = {
         StrAdd: 'Tran Quoc Toan',
         city: 'HaNoi',
         phoneNum:'985623952',
-        //zipCode: '222222222',
-        //state: 'California',
         email: process.env.USERNAME!
 };
 
 test("TC06 - Verify users try to buy an item without logging in (As a guest)", async ({
     accountPage,
+    homePage,
     productPage,
     checkoutPage,
     detailPage,
     orderConfirmationPage
 }) => {
     // Step 1: Open https://demo.testarchitect.com/
+    await homePage.navigate();
     // Step 2: Navigate to 'Shop' or 'Products' section
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
