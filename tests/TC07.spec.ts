@@ -2,7 +2,6 @@ import { expect, test } from "config/fixtures";
 import { PAGE_NAVIGATE } from "data/PageNavigate";
 
 test("TC07 - Ensure proper error handling when mandatory fields are blank", async ({
-    homePage,
     accountPage,
     productPage,
     detailPage,

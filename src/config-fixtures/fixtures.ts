@@ -20,16 +20,11 @@ export const test = base.extend<{ homePage: HomePage,
                         historyPage: OrderHistory,
                         cartPage: CartPage }>({
     homePage: async ({ page }, use) => {
-        const homePage = new HomePage(page);
-        await homePage.navigate();
-        await homePage.goToLoginPage();
-        await use(homePage);
+        await use(new HomePage(page));
     },
 
     loginPage: async ({ page }, use) => { 
-        const loginPage = new LoginPage(page);
-        await loginPage.login();
-        await use(loginPage);
+        await use(new LoginPage(page));
     },
 
     accountPage: async ({ page }, use) => {

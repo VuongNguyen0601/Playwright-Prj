@@ -17,7 +17,6 @@ const billingDetails: BILLING_INFO = {
 };
 
 test("TC06 - Verify users try to buy an item without logging in (As a guest)", async ({
-    homePage,
     accountPage,
     productPage,
     checkoutPage,

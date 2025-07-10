@@ -1,4 +1,6 @@
 import { Locator, Page } from "@playwright/test";
+import { REVIEWS } from "data/Review";
+
 
 export class DetailPage {
     readonly AddToCartBtn: Locator;
@@ -45,5 +47,35 @@ export class DetailPage {
 
     async getPrdName() {
         return this.page.locator('.product_title').innerText();
+    }
+
+    async priceInNumber() {
+        const price = await this.getPrice();
+        const numberOnly = price.replace(/[^0-9.]/g, '');
+        return parseFloat(numberOnly);
+    }
+
+    async clickReview() {
+        await this.reviewBtn.click();
+    }
+
+    async rating(numberStars: string) {
+        await this.page.locator(`.stars .star-${numberStars}`).click();
+    }
+
+    async writeReview(review: string) {
+        await this.reviewTbx.fill(review);
+    }
+
+    async submitReview() {
+        await this.submitReviewBtn.click();
+    }
+
+    async getReview() {
+        return this.page.locator('.comment-text .description p').filter({ hasText: REVIEWS.PRD_REVIEW });
+    }
+
+    async getPrdInfoList() {
+        return[await this.getPrdName(), await this.getPrice(), await this.getQuantity()];
     }
 }

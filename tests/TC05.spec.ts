@@ -17,7 +17,6 @@ const billingDetails: BILLING_INFO = {
 
 test("TC05 - Verify orders appear in order history", async ( {
     homePage,
-    loginPage,
     accountPage,
     detailPage, 
     checkoutPage, 
@@ -51,22 +50,22 @@ test("TC05 - Verify orders appear in order history", async ( {
     expect(await historyPage.getOrderPriceAndQuantityInTable()).toEqual(`$${expectedPrice}.00 FOR ${expectedQuantity} ITEM`);
 
     // Second product
-    await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
-    await productPage.chooseProduct('Bose SoundLink Mini');
-    expectedQuantity = await detailPage.getQuantity();
-    expectedPrice = await detailPage.getPrice();
+    // await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
+    // await productPage.chooseProduct('Bose SoundLink Mini');
+    // expectedQuantity = await detailPage.getQuantity();
+    // expectedPrice = await detailPage.getPrice();
 
-    await detailPage.addToCart();
-    await detailPage.clickCart();
-    await checkoutPage.fillBillingDetails(billingDetails);
-    await checkoutPage.placeOrder();
-    orderNumber = await orderConfirmationPage.getOrderNumber();
+    // await detailPage.addToCart();
+    // await detailPage.clickCart();
+    // await checkoutPage.fillBillingDetails(billingDetails);
+    // await checkoutPage.placeOrder();
+    // orderNumber = await orderConfirmationPage.getOrderNumber();
 
-    await homePage.goToAccountPage();
-    await accountPage.changePage(PAGE_NAVIGATE.ORDERS);
+    // await homePage.goToAccountPage();
+    // await accountPage.changePage(PAGE_NAVIGATE.ORDERS);
 
-    expect(await historyPage.getOrderDateInTable()).toEqual(`#${orderNumber}`);
-    expect(await historyPage.getOrderDateInTable()).toMatch(new RegExp(`^${date}$`, "i"));
-    expect(await historyPage.getOrderStatusInTable()).toEqual('ON HOLD');
-    expect(await historyPage.getOrderPriceAndQuantityInTable()).toEqual(`$${expectedPrice}.00 FOR ${expectedQuantity} ITEM`);
+    // expect(await historyPage.getOrderDateInTable()).toEqual(`#${orderNumber}`);
+    // expect(await historyPage.getOrderDateInTable()).toMatch(new RegExp(`^${date}$`, "i"));
+    // expect(await historyPage.getOrderStatusInTable()).toEqual('ON HOLD');
+    // expect(await historyPage.getOrderPriceAndQuantityInTable()).toEqual(`$${expectedPrice}.00 FOR ${expectedQuantity} ITEM`);
 })

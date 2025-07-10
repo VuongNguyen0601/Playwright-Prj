@@ -9,15 +9,11 @@ const billingDetails: BILLING_INFO = {
         StrAdd: 'Tran Quoc Toan',
         city: 'HaNoi',
         phoneNum:'985623952',
-        //zipCode: '222222222',
-        //state: 'California',
         email: process.env.EMAIL_ADDRESS!
 }
 
 test("TC03 - Verify users can buy item using different payment methods (all payment methods)", async ({
-    homePage,
     accountPage,
-    loginPage,
     detailPage,
     productPage,
     checkoutPage,

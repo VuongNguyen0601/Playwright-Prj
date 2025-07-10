@@ -1,4 +1,4 @@
-import { test } from "config/fixtures";
+import { test, expect } from "config/fixtures";
 import { BILLING_INFO } from "data/BillingInfo";
 import { PAGE_NAVIGATE } from "data/PageNavigate";
 
@@ -9,15 +9,11 @@ const billingDetails: BILLING_INFO = {
         StrAdd: 'Tran Quoc Toan',
         city: 'HaNoi',
         phoneNum:'985623952',
-        //zipCode: '222222222',
-        //state: 'California',
         email: process.env.EMAIL_ADDRESS!
 };
 
 test("TC02 - Verify users can buy multiple item successfully", async ({
     page,
-    homePage,
-    loginPage,
     accountPage,
     productPage,
     detailPage,
@@ -31,11 +27,12 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
     // Step 4: Select multiple items and add to cart
-    await productPage.chooseProduct('Beats Solo3 Wireless On-Ear');
+    await productPage.chooseProduct('ExoLens With Optics By ZEISS');
     await detailPage.addToCart();
     const prd1 = await detailPage.getPrdInfoList();
+
     await page.goBack();
-    await productPage.chooseProduct('Bose SoundLink Mini');
+    await productPage.chooseProduct('Robotic Arm Edge');
     await detailPage.addToCart();
     const prd2 = await detailPage.getPrdInfoList();
 

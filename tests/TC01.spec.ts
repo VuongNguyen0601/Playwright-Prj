@@ -9,8 +9,6 @@ const billingDetails: BILLING_INFO = {
         StrAdd: 'Tran Quoc Toan',
         city: 'HaNoi',
         phoneNum:'985623952',
-        //zipCode: '222222222',
-        //state: 'California',
         email: process.env.EMAIL_ADDRESS!
 };
 
@@ -25,7 +23,12 @@ test("TC01 - Verify users can buy an item successfully", async ({
     orderConfirmationPage
 }) => {
     // Step 1: Open browser and navigate to page
+    await homePage.navigate();
+
     // Step 2: Login with valid credentials
+    await homePage.goToLoginPage();
+    await loginPage.login();
+
     // Step 3: Navigate to All departments section
     await accountPage.navigateToAllDepartmentsDropdown();
 
@@ -43,9 +46,9 @@ test("TC01 - Verify users can buy an item successfully", async ({
     await detailPage.addToCart();
 
     // Step 10: Go to the cart
-    // Step 11: Verify item details in mini content (confirm w/)
     await detailPage.clickCart();
-
+    
+    // Step 11: Verify item details in mini content (confirm w/)
     // Step 12: Click on Checkout
     await detailPage.clickCheckout();
 
@@ -69,6 +72,5 @@ test("TC01 - Verify users can buy an item successfully", async ({
     await expect(await orderConfirmationPage.getItemName(prdName)).toBeVisible();
     expect(await orderConfirmationPage.getItemQuantity(prdName)).toEqual(`×${prdQuantity}`);
     expect(await orderConfirmationPage.getItemPrice(prdName)).toEqual(`$${prdPrice}.00`);
-
     expect(await orderConfirmationPage.getBillingAddress()).toEqual((`${billingDetails.firstName}${billingDetails.lastName}${billingDetails.StrAdd}${billingDetails.city}${billingDetails.country}${billingDetails.phoneNum}${billingDetails.email}`).replace(/\s+/g, ''));
 })
