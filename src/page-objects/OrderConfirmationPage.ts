@@ -9,17 +9,16 @@ export class OrderConfirmationPage {
          this.billingAddress = this.page.locator('.woocommerce-customer-details address');
     }
 
-    async getItemName(ProductName: string) {
-        return this.page.getByText(`${ProductName}`);
+    async getItemName(productName: string): Promise<Locator> {
+        return this.page.locator('tr.order_item td.product-name')
+        .filter({ hasText: productName })
+        .locator('a');
     }
 
-    // async getItemQuantity(quantity: string) {
-    //     return this.page.getByText(`× ${quantity}`);
-    // }
-    async getItemQuantity(productName: string) {
-        return (await this.page.locator('.order_item .product-name')
-        .filter({ hasText: productName })
-        .locator('.product-quantity').innerText()).replace(/\s+/g, '');
+    async getItemQuantity(productName: string): Promise<Locator> {
+       return this.page.locator('tr.order_item td.product-name')
+       .filter({ hasText: productName })
+       .locator('.product-quantity');
     }
 
     async getOrderDetails(ProductName: string) {
@@ -30,17 +29,18 @@ export class OrderConfirmationPage {
         return this.page.getByText(MESSAGES.ORDERS_SUCCESS_MESSAGE);
     }
 
-     async getItemPrice(productName: string) {
-        return (await this.page.locator('.order_item')
+    async getItemPrice(productName: string): Promise<Locator> {
+        return this.page.locator('tr.order_item')
         .filter({ hasText: productName })
-        .locator('.woocommerce-Price-amount').innerText());
+        .locator('span.woocommerce-Price-amount');
     }
+
 
     async getOrderNumber() {
         return await this.page.locator('.order strong').innerText();
     }
     
-    async getBillingAddress() {
-        return (await this.billingAddress.innerText()).replace(/\s+/g, '');
-    }
+    // async getBillingAddress() {
+    //     return (await this.billingAddress.innerText()).replace(/\s+/g, '');
+    // }
 }

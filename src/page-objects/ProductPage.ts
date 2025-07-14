@@ -2,26 +2,28 @@ import { Page } from '@playwright/test';
 import { Locator } from '@playwright/test';
 
 export class ProductPage {
-   readonly SortDropdown: Locator;
-   readonly ClosePopUpBtn: Locator;
+   readonly sortDropdown: Locator;
+   readonly closePopUpBtn: Locator;
 
    constructor(private page: Page) {
-      this.SortDropdown = page.getByRole('combobox', { name: 'Shop Order'});
-      this.ClosePopUpBtn = page.getByRole('combobox', { name: 'Close' });
+      this.sortDropdown = page.getByRole('combobox', { name: 'Shop Order'});
+      this.closePopUpBtn = page.getByRole('combobox', { name: 'Close' });
    }
 
-   async chooseProduct(ProductName: string) {
-      await this.page.getByRole('link', {name: ProductName, exact: true}).click();
+   async chooseProduct(productName: string) {
+      // this.page.getByText('HP LaserJet M127fw With Wi-Fi')
+      // this.page.getByRole('link', {name: /^HP LaserJet M127fw With Wi-Fi$/i})
+      await this.page.getByRole('link', { name: new RegExp(`^${productName}$`, 'i') }).first().click();
    }
 
-   async chooseRandomPrd(): Promise<void> {
-      const productCount = await this.page.locator('.content-product').count();
-      const randomIndex = Math.floor(Math.random() * productCount);
-      await this.page.locator('.content-product .product-title').nth(randomIndex).click();
+   async chooseRandomPrd() {
+      const count = await this.page.locator('.content-product').count();
+      const randomIndex = Math.floor(Math.random() * count);
+      await this.page.locator('.content-product .product-title').nth(randomIndex).first().click();
    }
 
    async sortItems(sort: string) {
-      await this.SortDropdown.selectOption(sort);
+      await this.sortDropdown.selectOption(sort);
    }
 
    async getAllPrice(): Promise<number[]> {

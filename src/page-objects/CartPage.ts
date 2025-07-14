@@ -33,7 +33,9 @@ export class CartPage {
   }
 
   async getOrderedItemQuantity(prdName: string) {
-    return parseFloat(await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? '0');
+    //return parseFloat(await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? '0');
+
+    return await this.page.getByRole('spinbutton', { name: `${prdName} quantity`});
   }
 
   async addQuantity() {
@@ -68,5 +70,27 @@ export class CartPage {
 
   async clickToCheckout() {
     await this.proceedToCheckoutBtn.click();
+  }
+
+  async verifyItemOrdered(expectedProducts: string[][]) {
+    for (let i = 0; i < expectedProducts.length; i++) {
+      // Chọn từng sản phẩm trong danh sách đơn hàng
+      const item = this.page.locator('.cart_item').nth(i);
+
+      // Lấy tên sản phẩm
+      const name = await item.locator('.product-title').innerText();
+
+      // Lấy giá sản phẩm
+      const price = await item.locator('.product-price .woocommerce-Price-amount').innerText();
+
+      // Lấy số lượng sản phẩm
+      const quantity = await item.locator('.qty').getAttribute('value');
+
+      // Tạo mảng thông tin thực tế của sản phẩm [name, price, quantity]
+      const actualInfo = [name, price, quantity];
+
+      // So sánh với dữ liệu mong đợi
+      expect(actualInfo).toEqual(expectedProducts[i]);
+    }
   }
 }

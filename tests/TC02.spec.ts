@@ -32,7 +32,7 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
     // Step 4: Select multiple items and add to cart
-    await productPage.chooseProduct('ExoLens With Optics By ZEISS');
+    await productPage.chooseProduct('HP LaserJet M127fw With Wi-Fi');
     await detailPage.addToCart();
     const prd1 = await detailPage.getPrdInfoList();
 
@@ -44,6 +44,7 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
     // Step 5: Go to the cart and verify all selected items
     await detailPage.goToCart();
     const allPrd = [prd1, prd2];
+    await cartPage.verifyItemOrdered(allPrd);
 
     // Step 6: Proceed to checkout and confirm order
     await cartPage.clickToCheckout();

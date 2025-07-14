@@ -13,18 +13,18 @@ export class AccountPage {
         await this.AllDepartmentsDropdown.hover();
     }
 
-    async selectPage(OptionName: string) {
+    async selectPage(optionName: string) {
   
-        await this.page.getByRole('link', {name:  ` ${OptionName}` }).click();
+        await this.page.getByRole('link', {name:  ` ${optionName}` }).click();
     }
 
-    async goToPage(PageName: string) {
+    async goToPage(pageName: string) {
         
-        await this.page.locator('#menu-main-menu-1').getByRole('link', { name: `${PageName}` }).click();
+        await this.page.locator('#menu-main-menu-1').getByRole('link', { name: `${pageName}` }).click();
     }
 
-    async changePage(OptionName: string) {
-  
-        await this.page.getByRole('link', {name:  `${OptionName}` }).click();
+    async changePage(optionName: string) {
+        
+        await this.page.getByRole('link', {name:  `${optionName}` }).click();
     }
 }

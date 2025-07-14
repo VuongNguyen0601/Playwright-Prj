@@ -42,11 +42,17 @@ export class DetailPage {
 
     async getQuantity() {
         const prdName = await this.getPrdName();
-        return parseFloat(await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? '0');
+         return await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? "";
     }
 
     async getPrice() {
-        const price = await this.page.locator('.fixed-content .price .woocommerce-Price-amount').last().innerText();
+        //const prdName = await this.getPrdName();
+        return await this.page.locator('.fixed-content .price .woocommerce-Price-amount').last().innerText();
+        //return await this.page.getByRole('spinbutton', { name: `${prdName} price` }).getAttribute('value') ?? "";
+    }
+
+     async priceInNumber() {
+        const price = await this.getPrice();
         const numberOnly = price.replace(/[^0-9.]/g, '');
         return parseFloat(numberOnly);
     }
@@ -72,7 +78,8 @@ export class DetailPage {
     }
 
     async getReview() {
-        return this.page.locator('.comment-text .description p').filter({ hasText: REVIEWS.PRD_REVIEW });
+        // return this.page.locator('.comment-text .description p').filter({ hasText: REVIEWS.PRD_REVIEW });
+        return this.page.locator('.comment-text .description p').getByText(REVIEWS.PRD_REVIEW, { exact: true });
     }
 
     async getPrdInfoList() {

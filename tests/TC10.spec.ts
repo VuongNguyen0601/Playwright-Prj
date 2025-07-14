@@ -2,7 +2,7 @@ import { expect, test } from "config/fixtures";
 import { PAGE_NAVIGATE } from "data/PageNavigate";
 import { REVIEWS } from "data/Review";
 
-test("Verify users can post a review", async ({
+test("TC10 - Verify users can post a review", async ({
     accountPage,
     productPage,
     homePage,

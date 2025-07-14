@@ -33,7 +33,7 @@ test("TC01 - Verify users can buy an item successfully", async ({
     await accountPage.navigateToAllDepartmentsDropdown();
 
     // Step 4: Select Electronic Components & Supplies
-    await accountPage.selectPage(DEPARTMENTS.ELECTRONIC_COMPONENT_AND_SUPPLIES);
+    await accountPage.changePage(DEPARTMENTS.ELECTRONIC_COMPONENT_AND_SUPPLIES);
 
     // Step 8: Select andy item randomly to purchase (DJI Mavic Pro Camera Drone)
     // await productPage.chooseProduct('DJI Mavic Pro Camera Drone');
@@ -56,11 +56,14 @@ test("TC01 - Verify users can buy an item successfully", async ({
     await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
 
     // Step 14: Verify item details in order
-    const itemOrdered = await checkoutPage.getItemOrdered(prdName, prdQuantity);
-    await expect(itemOrdered).toBeVisible();
+    //const itemOrdered = await checkoutPage.getItemOrdered(prdName, prdQuantity);
+    //await expect(itemOrdered).toBeVisible();
+    await expect(await checkoutPage.getItemOrdered()).toHaveText(new RegExp(`\\s*${prdName}\\s*×\\s*${prdQuantity}\\s*`, 'i'));
+    
 
     // Step 15: Fill the billing details with default payment method
     await checkoutPage.fillBillingDetails(billingDetails);
+    //await checkoutPage.placeOrder();
 
     // Step 16: Click on PLACE ORDER
     await checkoutPage.placeOrder();
@@ -69,8 +72,17 @@ test("TC01 - Verify users can buy an item successfully", async ({
     // await expect(page).toHaveURL(/.*order-received.*/);
 
     // Step 18: Verify the Order details with billing and item information
-    await expect(await orderConfirmationPage.getItemName(prdName)).toBeVisible();
-    expect(await orderConfirmationPage.getItemQuantity(prdName)).toEqual(`×${prdQuantity}`);
-    expect(await orderConfirmationPage.getItemPrice(prdName)).toEqual(`$${prdPrice}.00`);
-    expect(await orderConfirmationPage.getBillingAddress()).toEqual((`${billingDetails.firstName}${billingDetails.lastName}${billingDetails.StrAdd}${billingDetails.city}${billingDetails.country}${billingDetails.phoneNum}${billingDetails.email}`).replace(/\s+/g, ''));
+    await expect(await orderConfirmationPage.getItemName(prdName)).toHaveText(new RegExp(`${prdName}`, 'i'));
+    await expect(await orderConfirmationPage.getItemQuantity(prdName)).toHaveText(`× ${prdQuantity}`);
+    await expect(await orderConfirmationPage.getItemPrice(prdName)).toHaveText(`${prdPrice}`);
+    await expect(orderConfirmationPage.billingAddress).toHaveText(new RegExp (
+        `\\s*${billingDetails
+            .firstName}\\s*${billingDetails
+            .lastName}\\s*${billingDetails
+            .StrAdd}\\s*${billingDetails
+            .city}\\s*${billingDetails
+            .country}\\s*${billingDetails
+            .phoneNum}\\s*${billingDetails
+            .email}\\s*`)
+    );
 })
