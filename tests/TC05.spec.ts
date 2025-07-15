@@ -10,13 +10,12 @@ const billingDetails: BILLING_INFO = {
         StrAdd: 'Tran Quoc Toan',
         city: 'HaNoi',
         phoneNum:'985623952',
-        //zipCode: '222222222',
-        //state: 'California',
         email: process.env.EMAIL_ADDRESS!
 };
 
 test("TC05 - Verify orders appear in order history", async ( {
     homePage,
+    loginPage,
     accountPage,
     detailPage, 
     checkoutPage, 
@@ -26,6 +25,8 @@ test("TC05 - Verify orders appear in order history", async ( {
 }) => {
     // Step 1: Go to My account page
     await homePage.navigate();
+    await homePage.goToLoginPage();
+    await loginPage.login();
     // Step 2: Click order details (The orders are displayed)
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
     await productPage.chooseProduct(('AirPods'));
@@ -48,7 +49,7 @@ test("TC05 - Verify orders appear in order history", async ( {
     expect(await historyPage.getOrderNumberInTable()).toEqual(`#${orderNumber}`);
     expect(await historyPage.getOrderDateInTable()).toMatch(new RegExp(`^${date}$`, "i"));
     expect(await historyPage.getOrderStatusInTable()).toEqual('ON HOLD');
-    expect(await historyPage.getOrderPriceAndQuantityInTable()).toEqual(`$${expectedPrice}.00 FOR ${expectedQuantity} ITEM`);
+    expect(await historyPage.getOrderPriceAndQuantityInTable()).toEqual(`${expectedPrice} FOR ${expectedQuantity} ITEM`);
 
     // Second product
     // await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
