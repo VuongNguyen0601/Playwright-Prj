@@ -9,7 +9,7 @@ const billingDetails: BILLING_INFO = {
         StrAdd: 'Tran Quoc Toan',
         city: 'HaNoi',
         phoneNum:'985623952',
-        email: process.env.USERNAME!
+        email: process.env.EMAIL_ADDRESS!
 };
 
 test("TC06 - Verify users try to buy an item without logging in (As a guest)", async ({

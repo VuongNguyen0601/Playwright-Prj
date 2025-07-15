@@ -8,7 +8,7 @@ test("TC08 - Verify users can clear the cart", async ({ page, homePage, loginPag
         await loginPage.login();
         // User added the items into cart
         await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
-        await productPage.chooseProduct('Photex FT3150 Black (95463)');
+        await productPage.chooseProduct('Beats Solo3 Wireless On-Ear');
         await detailPage.addToCart();
         await page.goBack();
         await productPage.chooseProduct('RoboXplorer Multi Terrain Robotic');

@@ -2,8 +2,6 @@ import { Locator, Page } from '@playwright/test';
 
 export class AccountPage {
     readonly AllDepartmentsDropdown: Locator;
-    //private OptionName: Locator;
-    //private PageName: Locator;
 
     constructor(private page: Page) {
         this.AllDepartmentsDropdown = page.getByText('All Departments');

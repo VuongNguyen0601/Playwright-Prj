@@ -19,7 +19,7 @@ test("TC07 - Ensure proper error handling when mandatory fields are blank", asyn
        
       // Step 1: Leave mandatory fields(address, payment info) blank
       // Step 2: Click 'Confirm Order'
-      // await checkoutPage.placeOrder();
+      await checkoutPage.placeOrder();
       await checkoutPage.placeOrder();
 
       // Step 3: Verify error messages (System should highlight missing fields and show an error message)

@@ -36,7 +36,6 @@ test("TC01 - Verify users can buy an item successfully", async ({
     await accountPage.changePage(DEPARTMENTS.ELECTRONIC_COMPONENT_AND_SUPPLIES);
 
     // Step 8: Select andy item randomly to purchase (DJI Mavic Pro Camera Drone)
-    // await productPage.chooseProduct('DJI Mavic Pro Camera Drone');
     await productPage.chooseRandomPrd();
     const prdName = await detailPage.getPrdName();
     const prdQuantity = await detailPage.getQuantity();

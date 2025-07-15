@@ -3,12 +3,12 @@ import { REVIEWS } from "data/Review";
 
 
 export class DetailPage {
-    readonly addToCartBtn: Locator;
-    readonly cartBtn: Locator;
-    readonly checkoutBtn: Locator;
-    readonly reviewBtn: Locator;
+    readonly addToCartButton: Locator;
+    readonly cartButton: Locator;
+    readonly checkoutButton: Locator;
+    readonly reviewButton: Locator;
     readonly reviewTbx: Locator;
-    readonly submitReviewBtn: Locator;
+    readonly submitReviewButton: Locator;
 
     constructor(private page: Page) {
         this.addToCartBtn = page.getByRole('button', { name: 'Add to cart' });

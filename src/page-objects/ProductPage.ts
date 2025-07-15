@@ -11,8 +11,8 @@ export class ProductPage {
    }
 
    async chooseProduct(productName: string) {
-      // this.page.getByText('HP LaserJet M127fw With Wi-Fi')
-      // this.page.getByRole('link', {name: /^HP LaserJet M127fw With Wi-Fi$/i})
+      // this.page.getByText('Photex FT3150 Black (95463)')
+      // this.page.getByRole('link', {name: `Photex FT3150 Black (95463)`, exact:true})
       await this.page.getByRole('link', { name: new RegExp(`^${productName}$`, 'i') }).first().click();
    }
 

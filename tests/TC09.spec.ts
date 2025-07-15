@@ -1,5 +1,6 @@
 import { test, expect } from "config/fixtures";
 import { PAGE_NAVIGATE } from "data/PageNavigate";
+import { NumberConverter } from "utils/ConvertToNumber";
 
 test("TC09 - Verify users can update quantity of product in cart", async ({
    accountPage,
@@ -28,8 +29,9 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
     await detailPage.goToCart();
 
     // Step 6: Verify quantity of added product
+    await expect(await cartPage.getOrderedItemQuantity(prdName)).toHaveAttribute('value', expectedQuantity);
     let actualQuantity = await cartPage.getOrderedItemQuantity(prdName);
-    expect(actualQuantity).toEqual(expectedQuantity);
+    // expect(actualQuantity).toEqual(expectedQuantity);
 
     // Step 7: Click on Plus button
     await cartPage.addQuantity();
@@ -38,8 +40,10 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
     actualQuantity = await cartPage.getOrderedItemQuantity(prdName);
     let actualPrice = await cartPage.getOrderItemPrice(prdName);
 
-    expect(actualQuantity).toEqual(2);
-    expect(actualPrice).toEqual(expectedPrice * 2);
+    await expect(actualQuantity).toHaveAttribute('value', '2');
+    let expectedPrice2 = NumberConverter.changeToNumber(expectedPrice);
+    actualPrice = await cartPage.getOrderItemPrice(prdName);
+    expect(actualPrice).toEqual(expectedPrice2 * 2);
 
     // Step 9: Enter 4 into quantity textbox then click on Update Cart button
     await cartPage.fillQuantity(prdName, '4');
@@ -48,8 +52,9 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
     // Step 10: Verify quantity of product is 4 and Sub Total price
     actualQuantity = await cartPage.getOrderedItemQuantity(prdName);
     actualPrice = await cartPage.getOrderItemPrice(prdName);
-    expect(actualQuantity).toEqual(4);
-    expect(actualPrice).toEqual(expectedPrice * 4);
+    await expect(actualQuantity).toHaveAttribute('value', '4');
+    expectedPrice2 = NumberConverter.changeToNumber(expectedPrice);
+    expect(actualPrice).toEqual(expectedPrice2 * 4);
 
     // Step 11: Click on Minus button
     await cartPage.reduceQuantity();
@@ -57,6 +62,7 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
     // Step 12: Verify quantity of product and Sub Total price
     actualQuantity = await cartPage.getOrderedItemQuantity(prdName);
     actualPrice = await cartPage.getOrderItemPrice(prdName);
-    expect(actualQuantity).toEqual(3);
-    expect(actualPrice).toEqual(expectedPrice * 3);
+    await expect(actualQuantity).toHaveAttribute('value', '3');
+    expectedPrice2 = NumberConverter.changeToNumber(expectedPrice);
+    expect(actualPrice).toEqual(expectedPrice2 * 3);
 })

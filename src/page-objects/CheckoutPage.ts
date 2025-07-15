@@ -9,9 +9,9 @@ export class CheckoutPage {
    readonly country: Locator;
    readonly streetAddress: Locator;
    readonly city: Locator;
-   readonly phoneNum: Locator;
+   readonly phoneNumber: Locator;
    readonly email: Locator;
-   readonly placeOrderBtn: Locator;
+   readonly placeOrderButton: Locator;
 
    constructor(private page: Page) {
     this.firstName = page.getByRole('textbox', { name: 'First name *' });
@@ -19,9 +19,9 @@ export class CheckoutPage {
     this.country = page.getByLabel('Country / Region *');
     this.streetAddress = page.getByRole('textbox', { name: 'Street address *' });
     this.city = page.getByRole('textbox', { name: 'Town / City *' });
-    this.phoneNum = page.getByRole('textbox', { name: 'Phone *' });
+    this.phoneNumber = page.getByRole('textbox', { name: 'Phone *' });
     this.email = page.getByRole('textbox', { name: 'Email address *' });
-    this.placeOrderBtn = page.getByRole('button' , { name: 'Place order'});
+    this.placeOrderButton = page.getByRole('button' , { name: 'Place order'});
    }
 
    async getItemOrdered() {
@@ -40,12 +40,12 @@ export class CheckoutPage {
     await this.country.selectOption(info.country);
     await this.streetAddress.fill(info.StrAdd);
     await this.city.fill(info.city);
-    await this.phoneNum.fill(info.phoneNum);
+    await this.phoneNumber.fill(info.phoneNum);
     await this.email.fill(info.email);
    }
 
    async placeOrder() {
-    await this.placeOrderBtn.click();
+    await this.placeOrderButton.click();
     await this.page.waitForSelector('form .blockOverlay');
     await this.page.waitForSelector('form .blockOverlay', { state: 'detached' });
    }
@@ -61,6 +61,6 @@ export class CheckoutPage {
    async verifyFieldHigh(fields: string[]) {
     for(const field of fields) {
             await expect(this.page.getByRole('textbox', { name: `${field} *` })).toHaveCSS('--et_inputs-border-color', COLORS.RED);
-    }
+        }
    }
 }
