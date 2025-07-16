@@ -2,10 +2,10 @@ export type BILLING_INFO = {
     firstName: string,
     lastName: string,
     country: string,
-    StrAdd: string,
+    streetAddress: string,
     city: string,
     //state: string,
     //zipCode: string,
-    phoneNum: string,
+    phoneNumber: string,
     email: string,
 }

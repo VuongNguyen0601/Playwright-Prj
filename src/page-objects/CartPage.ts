@@ -20,8 +20,8 @@ export class CartPage {
   }
 
   async verifyOrdersInTable() {
-    const CartItems = await this.page.locator('.table-responsive table tbody tr.cart_item').count();
-    await expect(CartItems).toBeGreaterThan(0);
+    const cartItems = await this.page.locator('.table-responsive table tbody tr.cart_item').count();
+    await expect(cartItems).toBeGreaterThan(0);
   }
 
   async clearCart() {
@@ -52,8 +52,8 @@ export class CartPage {
     const price = await this.page.locator('tr').filter({
       has: this.page.getByRole('link', { name: `${prdName}` })
     }).locator('.product-subtotal span bdi').innerText();
-    const NumberOnly = price.replace(/[^0-9.]/g, '');
-    return parseFloat(NumberOnly);
+    const numberOnly = price.replace(/[^0-9.]/g, '');
+    return parseFloat(numberOnly);
   }
 
   async fillQuantity(prdName: string, quantity: string) {

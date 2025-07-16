@@ -38,9 +38,9 @@ export class CheckoutPage {
     await this.firstName.fill(info.firstName);
     await this.lastName.fill(info.lastName);
     await this.country.selectOption(info.country);
-    await this.streetAddress.fill(info.StrAdd);
+    await this.streetAddress.fill(info.streetAddress);
     await this.city.fill(info.city);
-    await this.phoneNumber.fill(info.phoneNum);
+    await this.phoneNumber.fill(info.phoneNumber);
     await this.email.fill(info.email);
    }
 

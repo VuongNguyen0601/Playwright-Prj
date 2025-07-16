@@ -2,21 +2,21 @@ import { Page } from '@playwright/test';
 import { Locator } from '@playwright/test';
 
 export default class LoginPage {
-   readonly UserName: Locator;
-   readonly Password: Locator;
-   readonly SubmitBtn: Locator;
-   readonly AllDepartmentsDropdown: Locator;
+   readonly userName: Locator;
+   readonly password: Locator;
+   readonly submitBtn: Locator;
+   readonly allDepartmentsDropdown: Locator;
 
    constructor(private page: Page) {
-    this.UserName = page.getByRole('textbox', { name: 'Username or email address *' });
-    this.Password = page.getByRole('textbox', { name: 'Password *'});
-    this.SubmitBtn = page.getByRole('button', { name: 'Log in'});
-    this.AllDepartmentsDropdown = page.getByText('All departments');
+    this.userName = page.getByRole('textbox', { name: 'Username or email address *' });
+    this.password = page.getByRole('textbox', { name: 'Password *'});
+    this.submitBtn = page.getByRole('button', { name: 'Log in'});
+    this.allDepartmentsDropdown = page.getByText('All departments');
    }
 
    async login() {
-    await this.UserName.fill(process.env.EMAIL_ADDRESS!);
-    await this.Password.fill(process.env.PASSWORD!);
-    await this.SubmitBtn.click();
+    await this.userName.fill(process.env.EMAIL_ADDRESS!);
+    await this.password.fill(process.env.PASSWORD!);
+    await this.submitBtn.click();
    }
 }

@@ -1,14 +1,14 @@
 import { Locator, Page } from '@playwright/test';
 
 export class AccountPage {
-    readonly AllDepartmentsDropdown: Locator;
+    readonly allDepartmentsDropdown: Locator;
 
     constructor(private page: Page) {
-        this.AllDepartmentsDropdown = page.getByText('All Departments');
+        this.allDepartmentsDropdown = page.getByText('All Departments');
     }
 
     async navigateToAllDepartmentsDropdown() {
-        await this.AllDepartmentsDropdown.hover();
+        await this.allDepartmentsDropdown.hover();
     }
 
     async selectPage(optionName: string) {

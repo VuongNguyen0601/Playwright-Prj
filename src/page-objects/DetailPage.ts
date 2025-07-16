@@ -7,36 +7,36 @@ export class DetailPage {
     readonly cartButton: Locator;
     readonly checkoutButton: Locator;
     readonly reviewButton: Locator;
-    readonly reviewTbx: Locator;
+    readonly reviewTextbox: Locator;
     readonly submitReviewButton: Locator;
 
     constructor(private page: Page) {
-        this.addToCartBtn = page.getByRole('button', { name: 'Add to cart' });
-        this.cartBtn = page.getByRole('link').filter({ hasText: '$' });
-        this.checkoutBtn = page.getByRole('link', { name: 'checkout' });
-        this.reviewBtn = page.locator('#tab_reviews');
-        this.reviewTbx = page.getByRole('textbox', { name: 'Your review *'});
-        this.submitReviewBtn = page.getByRole('button', { name: 'Submit' })
+        this.addToCartButton = page.getByRole('button', { name: 'Add to cart' });
+        this.cartButton = page.getByRole('link').filter({ hasText: '$' });
+        this.checkoutButton = page.getByRole('link', { name: 'checkout' });
+        this.reviewButton = page.locator('#tab_reviews');
+        this.reviewTextbox = page.getByRole('textbox', { name: 'Your review *'});
+        this.submitReviewButton = page.getByRole('button', { name: 'Submit' })
     }
 
     async addToCart() {
-        await this.addToCartBtn.click();
+        await this.addToCartButton.click();
 
         await this.page.waitForSelector("[data-type='success']");
     }
 
     async clickCart() {
-        await this.cartBtn.hover();
+        await this.cartButton.hover();
     }
 
     async clickCheckout() {
-        await this.checkoutBtn.click();
+        await this.checkoutButton.click();
         //await this.page.waitForSelector('.blockOverlay');
         //await this.page.waitForSelector('.blockOverlay', { state: 'detached' });
     }
 
     async goToCart() {
-        await this.cartBtn.click();
+        await this.cartButton.click();
         await this.page.reload();
     }
 
@@ -62,7 +62,7 @@ export class DetailPage {
     }
 
     async clickReview() {
-        await this.reviewBtn.click();
+        await this.reviewButton.click();
     }
 
     async rating(numberStars: string) {
@@ -70,11 +70,11 @@ export class DetailPage {
     }
 
     async writeReview(review: string) {
-        await this.reviewTbx.fill(review);
+        await this.reviewTextbox.fill(review);
     }
 
     async submitReview() {
-        await this.submitReviewBtn.click();
+        await this.submitReviewButton.click();
     }
 
     async getReview() {

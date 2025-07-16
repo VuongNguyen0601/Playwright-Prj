@@ -3,11 +3,11 @@ import { Locator } from '@playwright/test';
 
 export class ProductPage {
    readonly sortDropdown: Locator;
-   readonly closePopUpBtn: Locator;
+   readonly closePopUpButton: Locator;
 
    constructor(private page: Page) {
       this.sortDropdown = page.getByRole('combobox', { name: 'Shop Order'});
-      this.closePopUpBtn = page.getByRole('combobox', { name: 'Close' });
+      this.closePopUpButton = page.getByRole('combobox', { name: 'Close' });
    }
 
    async chooseProduct(productName: string) {
@@ -28,15 +28,15 @@ export class ProductPage {
 
    async getAllPrice(): Promise<number[]> {
       const prices: number[] = [];
-      const ProductCount = await this.page.locator('.content-product').count();
+      const productCount = await this.page.locator('.content-product').count();
 
-      for (let i = 1; i <= ProductCount; i++) {
-         const PriceLocator = this.page.locator(
+      for (let i = 1; i <= productCount; i++) {
+         const priceLocator = this.page.locator(
             `(//div[@class ='content-product '])[${i}]//span[@class ='woocommerce-Price-amount amount' and not(ancestor::del)]`
          );
 
-         const PriceText = await PriceLocator.innerText();
-         const numericPrice = parseFloat(PriceText.replace(/[0-9.]/g, ''));
+         const priceText = await priceLocator.innerText();
+         const numericPrice = parseFloat(priceText.replace(/[0-9.]/g, ''));
          prices.push(numericPrice);
       }
       return prices;
@@ -53,14 +53,14 @@ export class ProductPage {
    }
 
    async sortPrices(order: 'Ascend' | 'Descend'): Promise<number[]> {
-      const OriginPrices = await this.getItemPricesAfterRefresh();
+      const originPrices = await this.getItemPricesAfterRefresh();
 
       if (order === 'Ascend') {
-         return [...OriginPrices].sort((a, b) => a - b);
+         return [...originPrices].sort((a, b) => a - b);
       }
 
       else if (order === 'Descend') {
-         return [...OriginPrices].sort((a, b) => b - a);
+         return [...originPrices].sort((a, b) => b - a);
       }
       else
       {

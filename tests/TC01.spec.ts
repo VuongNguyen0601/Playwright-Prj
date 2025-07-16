@@ -6,9 +6,9 @@ const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
         lastName: 'King',
         country: 'Vietnam',
-        StrAdd: 'Tran Quoc Toan',
+        streetAddress: 'Tran Quoc Toan',
         city: 'HaNoi',
-        phoneNum:'985623952',
+        phoneNumber:'985623952',
         email: process.env.EMAIL_ADDRESS!
 };
 
@@ -78,10 +78,10 @@ test("TC01 - Verify users can buy an item successfully", async ({
         `\\s*${billingDetails
             .firstName}\\s*${billingDetails
             .lastName}\\s*${billingDetails
-            .StrAdd}\\s*${billingDetails
+            .streetAddress}\\s*${billingDetails
             .city}\\s*${billingDetails
             .country}\\s*${billingDetails
-            .phoneNum}\\s*${billingDetails
+            .phoneNumber}\\s*${billingDetails
             .email}\\s*`)
     );
 })
