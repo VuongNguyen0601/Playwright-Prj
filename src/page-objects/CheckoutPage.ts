@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { BILLING_INFO } from "../datatest/BillingInfo";
-import { COLORS } from "../datatest/Color";
+import { BILLING_INFO } from "data-test/BillingInfo";
+import { COLORS } from "data-test/Color";
 
 
 export class CheckoutPage {
@@ -24,11 +24,11 @@ export class CheckoutPage {
     this.placeOrderButton = page.getByRole('button' , { name: 'Place order'});
    }
 
-   async getItemOrdered() {
+    getItemOrdered() {
         return this.page.locator('table.shop_table td.product-name');
    }
 
-   async getItemOrderedPrice(prdName: string) {
+    getItemOrderedPrice(prdName: string) {
     return this.page.locator('table.shop_table tr')
     .filter({ has: this.page.getByRole('cell', { name: prdName })})
     .locator('span.woocommerce-Price-amount');
@@ -54,7 +54,7 @@ export class CheckoutPage {
     await this.page.getByText(`${method}`).click();
    }
 
-   async getErrMsg() {
+    getErrMsg() {
     return this.page.getByRole('alert');
    }
 

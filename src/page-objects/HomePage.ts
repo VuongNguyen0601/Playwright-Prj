@@ -1,5 +1,4 @@
-import { Locator} from "@playwright/test";
-import { Page } from "@playwright/test";
+import { Locator, Page} from "@playwright/test";
 import dotenv from 'dotenv';
 
 dotenv.config();

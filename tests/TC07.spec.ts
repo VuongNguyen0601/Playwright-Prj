@@ -1,5 +1,5 @@
 import { expect, test } from "config/fixtures";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
 
 test("TC07 - Ensure proper error handling when mandatory fields are blank", async ({
     accountPage,
@@ -10,6 +10,7 @@ test("TC07 - Ensure proper error handling when mandatory fields are blank", asyn
 }) => {
      // Pre-condition: Navigate to website
       await homePage.navigate();
+      
      // User is at checkout
       await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
       await productPage.chooseProduct('DJI Phantom 4 Camera Drone');

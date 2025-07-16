@@ -1,5 +1,5 @@
 import { test, expect } from "config/fixtures";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
 
 test("TC04 - Verify users can sort items by price", async ({ page, homePage, loginPage, accountPage, productPage }) => {
     // Step 1: Open browser and navigate to page

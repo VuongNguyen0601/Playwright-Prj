@@ -1,5 +1,4 @@
-import { Page } from '@playwright/test';
-import { Locator } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 export default class LoginPage {
    readonly userName: Locator;

@@ -1,6 +1,6 @@
 import { expect, test } from "config/fixtures";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
-import { REVIEWS } from "data/Review";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
+import { REVIEWS } from "data-test/Review";
 
 test("TC10 - Verify users can post a review", async ({
     accountPage,
@@ -11,9 +11,11 @@ test("TC10 - Verify users can post a review", async ({
 }) => {
     // Step 1: Open browser and go to website
     await homePage.navigate();
+
     // Step 2: Login with valid credentials
     await homePage.goToLoginPage();
     await loginPage.login();
+    
     // Step 3: Go to shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 

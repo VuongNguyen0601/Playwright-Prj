@@ -1,7 +1,7 @@
 import { test, expect } from "config/fixtures";
-import { BILLING_INFO } from "data/BillingInfo";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
-import GetDate from "utils/GetDate";
+import { BILLING_INFO } from "data-test/BillingInfo";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
+import DateUtils from "utils/DateUtils";
 
 const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
@@ -43,7 +43,7 @@ test("TC05 - Verify orders appear in order history", async ( {
     await homePage.goToAccountPage();
     await accountPage.changePage(PAGE_NAVIGATE.ORDERS);
     
-    const getDate = new GetDate();
+    const getDate = new DateUtils();
     const date = await getDate.getToday();
 
     expect(await historyPage.getOrderNumberInTable()).toEqual(`#${orderNumber}`);

@@ -1,6 +1,6 @@
 import { test, expect } from "config/fixtures";
-import { BILLING_INFO } from "data/BillingInfo";
-import { DEPARTMENTS } from "data/Department";
+import { BILLING_INFO } from "data-test/BillingInfo";
+import { DEPARTMENTS } from "data-test/Department";
 
 const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
@@ -55,25 +55,20 @@ test("TC01 - Verify users can buy an item successfully", async ({
     await expect(page).toHaveTitle('Checkout – TestArchitect Sample Website');
 
     // Step 14: Verify item details in order
-    //const itemOrdered = await checkoutPage.getItemOrdered(prdName, prdQuantity);
-    //await expect(itemOrdered).toBeVisible();
-    await expect(await checkoutPage.getItemOrdered()).toHaveText(new RegExp(`\\s*${prdName}\\s*×\\s*${prdQuantity}\\s*`, 'i'));
+    await expect(checkoutPage.getItemOrdered()).toHaveText(new RegExp(`\\s*${prdName}\\s*×\\s*${prdQuantity}\\s*`, 'i'));
     
-
     // Step 15: Fill the billing details with default payment method
     await checkoutPage.fillBillingDetails(billingDetails);
-    //await checkoutPage.placeOrder();
 
     // Step 16: Click on PLACE ORDER
     await checkoutPage.placeOrder();
 
     // Step 17: Verify Order status page displays
-    // await expect(page).toHaveURL(/.*order-received.*/);
 
     // Step 18: Verify the Order details with billing and item information
-    await expect(await orderConfirmationPage.getItemName(prdName)).toHaveText(new RegExp(`${prdName}`, 'i'));
-    await expect(await orderConfirmationPage.getItemQuantity(prdName)).toHaveText(`× ${prdQuantity}`);
-    await expect(await orderConfirmationPage.getItemPrice(prdName)).toHaveText(`${prdPrice}`);
+    await expect(orderConfirmationPage.getItemName(prdName)).toHaveText(new RegExp(`${prdName}`, 'i'));
+    await expect(orderConfirmationPage.getItemQuantity(prdName)).toHaveText(`× ${prdQuantity}`);
+    await expect(orderConfirmationPage.getItemPrice(prdName)).toHaveText(`${prdPrice}`);
     await expect(orderConfirmationPage.billingAddress).toHaveText(new RegExp (
         `\\s*${billingDetails
             .firstName}\\s*${billingDetails

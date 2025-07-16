@@ -1,6 +1,5 @@
-import { Locator } from "@playwright/test";
-import { Page } from "@playwright/test";
-import { MESSAGES } from "../datatest/Messages";
+import { Locator, Page } from "@playwright/test";
+import { MESSAGES } from "data-test/Messages";
 
 export class OrderConfirmationPage {
     readonly billingAddress: Locator;
@@ -9,35 +8,35 @@ export class OrderConfirmationPage {
          this.billingAddress = this.page.locator('.woocommerce-customer-details address');
     }
 
-    async getItemName(productName: string): Promise<Locator> {
-        return this.page.locator('tr.order_item td.product-name')
+     getItemName(productName: string) {
+         return this.page.locator('tr.order_item td.product-name')
         .filter({ hasText: productName })
         .locator('a');
     }
 
-    async getItemQuantity(productName: string): Promise<Locator> {
-       return this.page.locator('tr.order_item td.product-name')
+     getItemQuantity(productName: string) {
+        return this.page.locator('tr.order_item td.product-name')
        .filter({ hasText: productName })
        .locator('.product-quantity');
     }
 
-    async getOrderDetails(ProductName: string) {
+     getOrderDetails(ProductName: string) {
         return this.page.getByRole('heading', { name: 'Order Details'}).getByRole('link', { name: ProductName});
     }
 
-    async getSuccessMsg() {
+     getSuccessMsg() {
         return this.page.getByText(MESSAGES.ORDERS_SUCCESS_MESSAGE);
     }
 
-    async getItemPrice(productName: string): Promise<Locator> {
-        return this.page.locator('tr.order_item')
+     getItemPrice(productName: string) {
+         return this.page.locator('tr.order_item')
         .filter({ hasText: productName })
         .locator('span.woocommerce-Price-amount');
     }
 
 
-    async getOrderNumber() {
-        return await this.page.locator('.order strong').innerText();
+     getOrderNumber() {
+        return this.page.locator('.order strong').innerText();
     }
     
     // async getBillingAddress() {

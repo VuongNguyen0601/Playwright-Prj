@@ -1,6 +1,6 @@
 import { test, expect } from "config/fixtures";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
-import { BILLING_INFO } from "data/BillingInfo";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
+import { BILLING_INFO } from "data-test/BillingInfo";
 
 const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
@@ -45,5 +45,5 @@ test("TC03 - Verify users can buy item using different payment methods (all paym
     await checkoutPage.placeOrder();
 
     // Step 8: Verify order confirmation message
-    await expect(await orderConfirmationPage.getSuccessMsg()).toBeVisible();
+    await expect(orderConfirmationPage.getSuccessMsg()).toBeVisible();
 })

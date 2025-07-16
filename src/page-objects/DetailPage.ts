@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { REVIEWS } from "data/Review";
+import { REVIEWS } from "data-test/Review";
 
 
 export class DetailPage {
@@ -42,12 +42,12 @@ export class DetailPage {
 
     async getQuantity() {
         const prdName = await this.getPrdName();
-         return await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? "";
+        return await this.page.getByRole('spinbutton', { name: `${prdName} quantity` }).getAttribute('value') ?? "";
     }
 
-    async getPrice() {
+     getPrice() {
         //const prdName = await this.getPrdName();
-        return await this.page.locator('.fixed-content .price .woocommerce-Price-amount').last().innerText();
+        return this.page.locator('.fixed-content .price .woocommerce-Price-amount').last().innerText();
         //return await this.page.getByRole('spinbutton', { name: `${prdName} price` }).getAttribute('value') ?? "";
     }
 
@@ -57,7 +57,7 @@ export class DetailPage {
         return parseFloat(numberOnly);
     }
 
-    async getPrdName() {
+     getPrdName() {
         return this.page.locator('.product_title').innerText();
     }
 
@@ -77,7 +77,7 @@ export class DetailPage {
         await this.submitReviewButton.click();
     }
 
-    async getReview() {
+     getReview() {
         // return this.page.locator('.comment-text .description p').filter({ hasText: REVIEWS.PRD_REVIEW });
         return this.page.locator('.comment-text .description p').getByText(REVIEWS.PRD_REVIEW, { exact: true });
     }

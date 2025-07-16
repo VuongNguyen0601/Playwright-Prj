@@ -1,5 +1,5 @@
 import { expect, Page, Locator } from '@playwright/test';
-import { MESSAGES } from '../datatest/Messages';
+import { MESSAGES } from 'data-test/Messages';
 
 export class CartPage {
 
@@ -28,12 +28,12 @@ export class CartPage {
     await this.clearCartButton.click();
   }
 
-  async getEmptyCartMsg() {
+   getEmptyCartMsg() {
     return this.page.getByRole('heading', { name: MESSAGES.EMPTY_CART_MESSAGE });
   }
 
-  async getOrderedItemQuantity(prdName: string) {
-    return await this.page.getByRole('spinbutton', { name: `${prdName} quantity`});
+   getOrderedItemQuantity(prdName: string) {
+    return this.page.getByRole('spinbutton', { name: `${prdName} quantity`});
   }
 
   async addQuantity() {

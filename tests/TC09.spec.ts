@@ -1,6 +1,6 @@
 import { test, expect } from "config/fixtures";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
-import { NumberConverter } from "utils/ConvertToNumber";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
+import { NumberConverter } from "utils/NumberConverter";
 
 test("TC09 - Verify users can update quantity of product in cart", async ({
    accountPage,
@@ -12,9 +12,11 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
 }) => {
     // Step 1: Open browser and go to website
     await homePage.navigate();
+
     // Step 2: Login with valid credentials
     await homePage.goToLoginPage();
     await loginPage.login();
+    
     // Step 3: Go to shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
@@ -29,7 +31,7 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
     await detailPage.goToCart();
 
     // Step 6: Verify quantity of added product
-    await expect(await cartPage.getOrderedItemQuantity(prdName)).toHaveAttribute('value', expectedQuantity);
+    await expect(cartPage.getOrderedItemQuantity(prdName)).toHaveAttribute('value', expectedQuantity);
     let actualQuantity = await cartPage.getOrderedItemQuantity(prdName);
     // expect(actualQuantity).toEqual(expectedQuantity);
 

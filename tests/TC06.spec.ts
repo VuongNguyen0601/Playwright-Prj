@@ -1,6 +1,6 @@
 import { expect, test } from "config/fixtures";
-import { BILLING_INFO } from "data/BillingInfo";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
+import { BILLING_INFO } from "data-test/BillingInfo";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
 
 const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
@@ -22,6 +22,7 @@ test("TC06 - Verify users try to buy an item without logging in (As a guest)", a
 }) => {
     // Step 1: Open https://demo.testarchitect.com/
     await homePage.navigate();
+    
     // Step 2: Navigate to 'Shop' or 'Products' section
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
@@ -36,5 +37,5 @@ test("TC06 - Verify users try to buy an item without logging in (As a guest)", a
     await detailPage.clickCheckout();
     await checkoutPage.fillBillingDetails(billingDetails);
     await checkoutPage.placeOrder();
-    await expect(await orderConfirmationPage.getSuccessMsg()).toBeVisible();
+    await expect(orderConfirmationPage.getSuccessMsg()).toBeVisible();
 })

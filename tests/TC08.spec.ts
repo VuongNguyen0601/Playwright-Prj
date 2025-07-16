@@ -1,11 +1,12 @@
 import { expect, test } from "config/fixtures";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
 
 test("TC08 - Verify users can clear the cart", async ({ page, homePage, loginPage, 
     accountPage, productPage, detailPage, cartPage }) => {
         await homePage.navigate();
         await homePage.goToLoginPage();
         await loginPage.login();
+
         // User added the items into cart
         await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
         await productPage.chooseProduct('Beats Solo3 Wireless On-Ear');
@@ -26,5 +27,5 @@ test("TC08 - Verify users can clear the cart", async ({ page, homePage, loginPag
         await cartPage.clearCart();
 
         // Step 6: Verify empty cart page displays
-        await expect(await cartPage.getEmptyCartMsg()).toBeVisible();
+        await expect(cartPage.getEmptyCartMsg()).toBeVisible();
     })

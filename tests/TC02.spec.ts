@@ -1,6 +1,6 @@
 import { test, expect } from "config/fixtures";
-import { BILLING_INFO } from "data/BillingInfo";
-import { PAGE_NAVIGATE } from "data/PageNavigate";
+import { BILLING_INFO } from "data-test/BillingInfo";
+import { PAGE_NAVIGATE } from "data-test/PageNavigate";
 
 const billingDetails: BILLING_INFO = {
         firstName: 'Vuong',
@@ -52,5 +52,5 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
     await checkoutPage.placeOrder();
 
     // Step 7: Verify order confirmation message
-    await expect(await orderConfirmationPage.getSuccessMsg()).toBeVisible();
+    await expect(orderConfirmationPage.getSuccessMsg()).toBeVisible();
 })
