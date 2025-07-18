@@ -1,8 +1,17 @@
 import { expect, test } from "config/fixtures";
 import { PAGE_NAVIGATE } from "data-test/PageNavigate";
 
-test("TC08 - Verify users can clear the cart", async ({ page, homePage, loginPage, 
-    accountPage, productPage, detailPage, cartPage }) => {
+test("TC08 - Verify users can clear the cart", async ({ 
+    page, 
+    homePage, 
+    loginPage, 
+    accountPage, 
+    productPage, 
+    detailPage, 
+    cartPage 
+}) => {
+        // Step 1: Open browser and go to website
+        // Step 2: Login with valid credentials
         await homePage.navigate();
         await homePage.goToLoginPage();
         await loginPage.login();
@@ -15,8 +24,6 @@ test("TC08 - Verify users can clear the cart", async ({ page, homePage, loginPag
         await productPage.chooseProduct('RoboXplorer Multi Terrain Robotic');
         await detailPage.addToCart();
 
-        // Step 1: Open browser and go to website
-        // Step 2: Login with valid credentials
         // Step 3: Go to shopping cart page
         await detailPage.goToCart();
 

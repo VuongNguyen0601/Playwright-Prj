@@ -23,9 +23,11 @@ test("TC03 - Verify users can buy item using different payment methods (all paym
 }) => {
     // Step 1: Open browser and navigate to page
     await homePage.navigate();
+
     // Step 2: Login with valid credentials
     await homePage.goToLoginPage();
     await loginPage.login();
+    
     // Step 3: Go to Shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 
@@ -37,7 +39,7 @@ test("TC03 - Verify users can buy item using different payment methods (all paym
     await detailPage.clickCart();
     await detailPage.clickCheckout();
 
-    // Step 6: Choose....
+    // Step 6: Choose a different payment method (Direct bank transfer, Cash on delivery).
     await checkoutPage.choosePaymentMethod('Direct bank transfer');
 
     // Step 7: Complete the payment process

@@ -62,7 +62,7 @@ test("TC09 - Verify users can update quantity of product in cart", async ({
     await cartPage.reduceQuantity();
 
     // Step 12: Verify quantity of product and Sub Total price
-    actualQuantity = await cartPage.getOrderedItemQuantity(prdName);
+    actualQuantity = cartPage.getOrderedItemQuantity(prdName);
     actualPrice = await cartPage.getOrderItemPrice(prdName);
     await expect(actualQuantity).toHaveAttribute('value', '3');
     expectedPrice2 = NumberConverter.changeToNumber(expectedPrice);

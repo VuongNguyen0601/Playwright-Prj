@@ -32,5 +32,5 @@ test("TC10 - Verify users can post a review", async ({
 
     // Step 7: Verify new review
     await detailPage.clickReview();
-    await expect(await detailPage.getReview()).toBeVisible();
+    await expect(detailPage.getReview()).toBeVisible();
 })

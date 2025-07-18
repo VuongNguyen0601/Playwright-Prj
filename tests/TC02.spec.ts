@@ -25,9 +25,11 @@ test("TC02 - Verify users can buy multiple item successfully", async ({
 }) => {
     // Step 1: Open browser and navigate to page
     await homePage.navigate();
+
     // Step 2: Login with valid credentials
     await homePage.goToLoginPage();
     await loginPage.login();
+    
     // Step 3: Go to Shop page
     await accountPage.goToPage(PAGE_NAVIGATE.SHOP);
 

@@ -1,3 +1,3 @@
 export const REVIEWS = {
-    PRD_REVIEW: "test con chim cua Khanhh"
+    PRD_REVIEW: "test11"
 } as const
